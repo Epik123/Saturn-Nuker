@@ -26,7 +26,7 @@ class Nuker(commands.Cog):
          kickedmembers += 1
       print(f"Kicked {kickedmembers} members")
       
-   
+   #
    @commands.command(
       name="nukeserver"
    )
