@@ -1,7 +1,6 @@
-# MonkeySquad-Cog-Nuker
-RUN AT YOUR OWN RISK
+# RUN AT YOUR OWN RISK
 
-Nuker cog (Using disnake package)
+# Nuker cog (Using disnake package)
 
 
 Feel free too edit the code 
