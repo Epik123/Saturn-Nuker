@@ -1,24 +1,19 @@
 # IMPORTANT
-token = "" # PUT YOUR BOT TOKEN INBETWEEN THE ""s
+token = "MTAwNDgxNjQ5MDczNTg4MjI3MA.GO14xd.i-lmpgEuaF58d18eBJ0vBT_feu0pdPdO5ky0I4" # PUT YOUR BOT TOKEN INBETWEEN THE ""s
 
 import disnake
 from disnake.ext import commands
 
 import os
+import traceback
+import ctypes
+
+
+from cogs.nuker import Console
 
 
 bot = commands.Bot(perfix=".", intents=disnake.Intents.all(), sync_commands=True)
 bot.remove_command("help")
-
-
-# class Console:
-#     def __init__(self):
-#         self.maintext = "Discord Nuker || Version: 1.0.0 || "
-#         self.update(update = "Initialized || ")
-    
-#     def update(self, update):
-#         os.system(f"{self.maintext}+{update}")
-#         self.maintext = f"{self.maintext}+{update}"
 
 
 @bot.event
@@ -35,6 +30,8 @@ def loadCogs():
         print("Loaded Cogs ✅")
     except Exception as e:
         print(e)
+        print("\n")
+        traceback.print_exc()
 
 
 if __name__ == "__main__":

