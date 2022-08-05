@@ -4,9 +4,21 @@ token = "" # PUT YOUR BOT TOKEN INBETWEEN THE ""s
 import disnake
 from disnake.ext import commands
 
+import os
 
-bot = commands.Bot(perfix="!", intents=disnake.intents.all(), case_insensitive=True, sync_commands=True)
+
+bot = commands.Bot(perfix=".", intents=disnake.Intents.all(), sync_commands=True)
 bot.remove_command("help")
+
+
+# class Console:
+#     def __init__(self):
+#         self.maintext = "Discord Nuker || Version: 1.0.0 || "
+#         self.update(update = "Initialized || ")
+    
+#     def update(self, update):
+#         os.system(f"{self.maintext}+{update}")
+#         self.maintext = f"{self.maintext}+{update}"
 
 
 @bot.event
@@ -18,12 +30,11 @@ def loadCogs():
     """
     Load Extentions Of The Bot
     """
-    if os.path.isfile("./cogs/__init__.py"):
-        try:
-            bot.load_extension(f"cogs.__init__")
-            print("Loaded Cogs ✅")
-        except Exception as e:
-            print(e)
+    try:
+        bot.load_extension(f"cogs.nuker")
+        print("Loaded Cogs ✅")
+    except Exception as e:
+        print(e)
 
 
 if __name__ == "__main__":
@@ -32,5 +43,5 @@ if __name__ == "__main__":
     """
     loadCogs()
 
-
+Console()
 bot.run(token)
