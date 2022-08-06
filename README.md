@@ -16,7 +16,7 @@ first scroll down too where it says "Privileged Gateway Intents", there should b
 
 there should be a button labeled "Reset Token", reset your bot's token, (DO NOT GIVE THIS AWAY) then copy it and head over too bot.py
 
-when you are there at the very top of the file it should be labeled "token = "" # PUT YOUR BOT TOKEN INBETWEEN THE ""s"
+when you are there at the very top of the file it should be labeled "token = "" # PUT YOUR BOT TOKEN INBETWEEN THE ""s
 paste your token inbetween the ""s as stated and then you are free too run the bot
 
 

@@ -1,37 +1,33 @@
 # IMPORTANT
-token = "MTAwNDgxNjQ5MDczNTg4MjI3MA.GO14xd.i-lmpgEuaF58d18eBJ0vBT_feu0pdPdO5ky0I4" # PUT YOUR BOT TOKEN INBETWEEN THE ""s
-
 import disnake
 from disnake.ext import commands
 
+import json
 import os
-import traceback
-import ctypes
 
 
-from cogs.nuker import Console
+if not os.path.exists("config.json"):
+    with open("config.json", "w") as f:
+        json.dump(
+            {"token": "",
+             "webraidadvanced": False,
+             "webraidmessages": 20
+             }, f, indent=4)
+        exit()
+else:
+    with open("config.json") as f:
+        config = json.load(f)
 
 
 bot = commands.Bot(perfix=".", intents=disnake.Intents.all(), sync_commands=True)
 bot.remove_command("help")
 
 
-@bot.event
-async def on_ready():
-    print("Ready\nLogged in as {}".format(bot.user))
-
-
 def loadCogs():
     """
     Load Extentions Of The Bot
     """
-    try:
-        bot.load_extension(f"cogs.nuker")
-        print("Loaded Cogs ✅")
-    except Exception as e:
-        print(e)
-        print("\n")
-        traceback.print_exc()
+    bot.load_extension(f"cogs.nuker")
 
 
 if __name__ == "__main__":
@@ -40,5 +36,5 @@ if __name__ == "__main__":
     """
     loadCogs()
 
-Console()
-bot.run(token)
+
+bot.run(config.get("token"))
